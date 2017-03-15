@@ -1,0 +1,25 @@
+1.Implement doubly linked list with all the operations given in LEDA text book page number 62 and 63.
+
+Hint: 
+
+A sequence of n elements is represented by a ring of n+1 items. There is a special dummy item h, which stores no element. The successor h1 of h stores the first element of the sequence, the successor of h1 stores the second element of the sequence, and so on. The predecessor of h stores the last element of the sequence; The empty sequence is represented by a ring consisting only of h. Since there are no elements in that sequence, h is its own successor and predecessor. An object of class List contains a single list item h. The constructor of the class initializes the header h to an item containing ? and having itself as successor and predecessor. In this way, the list is initialized to the empty sequence.
+
+
+
+2.Implement search operation using sentinal (Refer page no 63, exercise 3.1).
+
+Hint: Another way of defining a doubly linked list is given in LEDA Text book, which is mostly known as Circular doubly linked list. Refer page no: 61 and 63
+
+The dummy item is also useful for other operations. For example, consider the problem of finding the next occurrence of an element x starting at an item from. If x is not present, head should be returned. We use the dummy element as a sentinel. A sentinel is an element in a data structure that makes sure that some loop will terminate. In the case of a list, we store the key we are looking for in the dummy element. This ensures that x is present in the list structure and hence a search for it will always terminate. The search will terminate in a proper list item or the dummy item, depending on whether x was present in the list originally. It is no longer necessary, to test whether the end of the list has been reached. In this way, the trick of using the dummy item h as a sentinel saves one test in each iteration and significantly improves the efficiency of the search:
+
+
+
+
+Implement splice operation using doubly linked list.
+
+We implement all basic list operations in terms of the single operation splice. splice cuts out a sublist from one list and inserts it after some target item. The sublist is specified by handles a and b to its first and its last element, respectively. In other words, b must be reachable from a by following zero or more next pointers but without going through the dummy item. The target item t can be either in the same list or in a different list; in the former case, it must not be inside the sublist starting at a and ending at b.
+
+splice does not change the number of items in the system.We assume that there is one special list, freeList, that keeps a supply of unused elements. When inserting new elements into a list, we take the necessary items from freeList, and when removing elements, we return the corresponding items to freeList. The function checkFreeList allocates memory for new items when necessary.
+
+With these conventions in place, a large number of useful operations can be implemented as one-line functions that all run in constant-time. Thanks to the power of splice, we can even manipulate arbitrarily long sublists in constant-time. In order to test whether a list is empty, we simply check whether h is its own successor. If a sequence is nonempty, its first and its last element are the successor and predecessor, respectively, of h. In order to move an item b to the positions after an item a, we simply cut out the sublist starting and ending at b and insert it after a. This is exactly what splice(b,b,a) does. We move an element to the first or last position of a sequence by moving it after the head or after the last element, respectively. In order to delete an element b, we move it to freeList. To insert a new element e, we take the first item of freeList, store the element in it, and move it to the place of insertion.
+ 
